@@ -18,8 +18,10 @@
 <resources>
     <color name="photo_placeholder">#ccc</color>
 
-    <color name="theme_primary">#04561A</color>
-    <color name="theme_primary_dark">#04561A</color>
-    <color name="theme_accent">#04561A</color>
-    <color name="ltgray">#ffe0e0e0</color>
+    <color name="theme_primary">#FFAA00</color>
+    <color name="theme_primary_light">#FFBE3B</color>
+    <color name="theme_primary_dark">#EB9D00</color>
+    <color name="theme_accent">#8B04D5</color>
+    <color name="text_color">#000000</color>
+
 </resources>
