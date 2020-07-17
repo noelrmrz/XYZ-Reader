@@ -143,6 +143,7 @@ public class ArticleDetailActivity extends AppCompatActivity
     public void onUpButtonFloorChanged(long itemId, ArticleDetailFragment fragment) {
         if (itemId == mSelectedItemId) {
             mSelectedItemUpButtonFloor = fragment.getUpButtonFloor();
+            // Todo update the logo position too or the framelayout
             updateUpButtonPosition();
         }
     }

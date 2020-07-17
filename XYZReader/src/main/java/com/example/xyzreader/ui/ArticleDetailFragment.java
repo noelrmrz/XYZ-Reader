@@ -5,10 +5,11 @@ import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Rect;
-import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.format.DateUtils;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ShareCompat;
 import androidx.fragment.app.Fragment;
 import androidx.loader.app.LoaderManager;
@@ -111,6 +113,7 @@ public class ArticleDetailFragment extends Fragment implements
         getLoaderManager().initLoader(0, null, this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
@@ -195,6 +198,7 @@ public class ArticleDetailFragment extends Fragment implements
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void bindViews() {
         if (mRootView == null) {
             return;
@@ -204,8 +208,6 @@ public class ArticleDetailFragment extends Fragment implements
         TextView bylineView = (TextView) mRootView.findViewById(R.id.article_byline);
         bylineView.setMovementMethod(new LinkMovementMethod());
         TextView bodyView = (TextView) mRootView.findViewById(R.id.article_body);
-
-        bodyView.setTypeface(Typeface.createFromAsset(getResources().getAssets(), "Rosario-Regular.ttf"));
 
         if (mCursor != null) {
             mRootView.setAlpha(0);
@@ -231,7 +233,21 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
 
             }
-            bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
+            //bodyView.setText(Html.fromHtml(mCursor.getString(ArticleLoader.Query.BODY).replaceAll("(\r\n|\n)", "<br />")));
+
+            String unparsedText = mCursor.getString(ArticleLoader.Query.BODY).substring(0, 1000);
+            String textOne = unparsedText.replaceAll(">", "&gt;");
+            String textTwo = textOne.replaceAll("(\r\n){2}(?!(&gt;))", "<br><br>");
+            String textThree = textTwo.replaceAll("(\r\n)", " ");
+            String textFour = textThree.replaceAll("\\[.*?\\]", "");
+            String textFive = textFour.replaceAll("(\\d\\.\\s.*?\\.)", "$1<br>");
+            String textSix = textFive.replaceAll("\\*(.*?)\\*", "<b>$1</b>");
+            String textSeven = textSix.replaceAll("(\\w\\s)&gt;", "$1");
+
+            Spanned textEight = Html.fromHtml(textSeven, Html.FROM_HTML_MODE_LEGACY);
+
+            bodyView.setText(textEight);
+
             ImageLoaderHelper.getInstance(getActivity()).getImageLoader()
                     .get(mCursor.getString(ArticleLoader.Query.PHOTO_URL), new ImageLoader.ImageListener() {
                         @Override
@@ -265,6 +281,7 @@ public class ArticleDetailFragment extends Fragment implements
         return ArticleLoader.newInstanceForItemId(getActivity(), mItemId);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoadFinished(@NonNull androidx.loader.content.Loader<Cursor> loader, Cursor cursor) {
         if (!isAdded()) {
@@ -284,17 +301,12 @@ public class ArticleDetailFragment extends Fragment implements
         bindViews();
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void onLoaderReset(@NonNull androidx.loader.content.Loader<Cursor> loader) {
         mCursor = null;
         bindViews();
     }
-
-/*    @Override
-    public void onLoaderReset(Loader<Cursor> cursorLoader) {
-        mCursor = null;
-        bindViews();
-    }*/
 
     public int getUpButtonFloor() {
         if (mPhotoContainerView == null || mPhotoView.getHeight() == 0) {
