@@ -1,12 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:app="http://schemas.android.com/apk/res-auto">
-    <style name="Theme.Bacon" parent="@style/Theme.AppCompat.Light.NoActionBar">
+
+    <style name="AppTheme" parent="@style/Theme.AppCompat.Light.NoActionBar">
         <item name="android:colorPrimary">@color/theme_primary</item>
         <item name="android:colorPrimaryDark">@color/theme_primary_dark</item>
         <item name="android:colorAccent">@color/theme_accent</item>
-        <item name="android:statusBarColor">@color/theme_primary_dark</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- enable window content transitions -->
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
+
+    <style name="AppTheme.Detail" parent="AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:statusBarColor">@color/theme_primary_dark</item>
+        <item name="statusBarBackground">@color/theme_primary</item>
+        <item name="android:windowTranslucentNavigation">false</item>
+        <item name="android:windowTranslucentStatus">false</item>
+    </style>
+
+    <style name="AppTheme.NoActionBar">
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" >
+    </style>
+
+
+    <style name="ThemeOverlay.AppCompat.Light" >
+        <item name="android:windowNoTitle">true</item>
     </style>
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">

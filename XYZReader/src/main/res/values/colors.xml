@@ -23,5 +23,6 @@
     <color name="theme_primary_dark">#EB9D00</color>
     <color name="theme_accent">#8B04D5</color>
     <color name="text_color">#000000</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>
