@@ -36,9 +36,8 @@ class FabScrollBehavior extends FloatingActionButton.Behavior {
         }
     }
 
-/*
 
-    public static boolean rotateFab(View view, boolean rotate) {
+/*    public static boolean rotateFab(View view, boolean rotate) {
         view.animate().setDuration(500)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -47,7 +46,6 @@ class FabScrollBehavior extends FloatingActionButton.Behavior {
                     }
                 })
                 .rotation(rotate ? 135f : 0f);
-        Log.v("eh", "hey");
         return rotate;
     }*/
 }

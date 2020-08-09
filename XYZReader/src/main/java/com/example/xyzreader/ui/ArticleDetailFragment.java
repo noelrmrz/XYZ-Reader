@@ -81,7 +81,6 @@ public class ArticleDetailFragment extends Fragment implements
 
         if (getArguments().containsKey(ARG_ITEM_ID)) {
             mItemId = getArguments().getLong(ARG_ITEM_ID);
-            //mColor = getArguments().getInt("color");
         }
         setHasOptionsMenu(true);
     }
@@ -197,7 +196,7 @@ public class ArticleDetailFragment extends Fragment implements
                                 + "</font>"));
             }
 
-            String unparsedText = mCursor.getString(ArticleLoader.Query.BODY).substring(0, 5000);
+            String unparsedText = mCursor.getString(ArticleLoader.Query.BODY);
             String textOne = unparsedText.replaceAll(">", "&gt;");
             String textTwo = textOne.replaceAll("(\r\n){2}(?!(&gt;))", "<br><br>");
             String textThree = textTwo.replaceAll("(\r\n)", " ");
@@ -215,8 +214,6 @@ public class ArticleDetailFragment extends Fragment implements
                             Bitmap bitmap = imageContainer.getBitmap();
                             if (bitmap != null) {
                                 mPhotoView.setImageBitmap(imageContainer.getBitmap());
-                                //mRootView.findViewById(R.id.meta_bar)
-                                //        .setBackgroundColor(mColor);
                             }
                         }
                         @Override
