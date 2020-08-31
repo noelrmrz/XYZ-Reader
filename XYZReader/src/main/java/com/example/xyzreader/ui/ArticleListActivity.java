@@ -1,6 +1,5 @@
 package com.example.xyzreader.ui;
 
-import android.animation.ObjectAnimator;
 import android.app.ActivityOptions;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -148,22 +147,12 @@ public class ArticleListActivity extends AppCompatActivity implements
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             View view = getLayoutInflater().inflate(R.layout.list_item_article, parent, false);
             final ViewHolder vh = new ViewHolder(view);
-            view.setTranslationY(0);
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    //int cls = (int) vh.itemView.getTag();
-                    ObjectAnimator animator = ObjectAnimator.ofFloat(view, "translationY", -250);
-                    animator.setDuration(500);
-                    animator.start();
                     Intent detailIntent = new Intent(Intent.ACTION_VIEW,
                             ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition())));
-                    startActivity(getItemId(vh.getAdapterPosition()));
-                    //detailIntent.putExtra("color", cls);
                     startActivity(detailIntent);
-                    overridePendingTransition(R.animator.slide_in_bottom, R.animator.slide_in_top);
-                    //startActivity(new Intent(Intent.ACTION_VIEW,
-                    //        ItemsContract.Items.buildItemUri(getItemId(vh.getAdapterPosition()))));
                 }
             });
             return vh;
